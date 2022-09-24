@@ -17,7 +17,7 @@ function closeMenu() {
     navMenu.classList.remove("active");
 }
 function getData() {
-    fetch('https://newsapi.org/v2/everything?q= ' + inputvalue.value + ' &from=2022-08-22&sortBy=publishedAt&apiKey=7c474d75aae447e592f5f82df21b12ab')
+    fetch('https://newsapi.org/v2/everything?q= ' + inputvalue.value + ' &from=2022-08-24&sortBy=publishedAt&apiKey=c290fe19c35c47ada391c2cbce5ec3e1')
         .then(res => res.json())
         .then((data) => {
 
@@ -29,22 +29,21 @@ function getData() {
                 let urlToImage = data.articles[i]["urlToImage"]
                 let url =  data.articles[i]["url"]
                 leftBox.innerHTML +=
-                    `  
-                    <div  id="card" class="card">
-                    <img src="${urlToImage}" alt="" class="img">
-                    <div class="container">
-                      <h4><b>Headlines</b></h4>
-                      <p>${data.articles[i]["description"]}</p>
-                    </div>
-                    <div class="time">PUBLISHED AT  ${data.articles[i]["publishedAt"]} </div>
-                    <a  class="anker"  href="${url}" target="_blank" >Read more here</a> 
-                  </div>
-                 `
+                `  
+                <div class="card">
+                <img src="${urlToImage}" alt="" class="img">
+                <div class="container2">
+                  <h4><b>HEADLINES</b></h4>
+                  <p>${data.articles[i]["title"]}</p>
+                </div>
+                <div class="time">PUBLISHED AT  ${data.articles[i]["publishedAt"]} </div>
+                <a  class="anker"  href="${url}" target="_blank" >Read more here</a> 
+       `
             }
         })
 }
 function  getData2(){
-    fetch('https://newsapi.org/v2/everything?q=international&from=2022-08-22&sortBy=publishedAt&apiKey=7c474d75aae447e592f5f82df21b12ab')
+    fetch('https://newsapi.org/v2/everything?q=international&from=2022-08-24&sortBy=publishedAt&apiKey=c290fe19c35c47ada391c2cbce5ec3e1')
         .then(res => res.json())
         .then((data) => {
 
@@ -55,16 +54,16 @@ function  getData2(){
                 let urlToImage = data.articles[i]["urlToImage"]
                 let url =  data.articles[i]["url"]
                 rightBox.innerHTML +=
-                    `  
-                    <div class="card2">
-                    <img src="${urlToImage}" alt="" class="img">
-                    <div class="container2">
-                      <h4><b>Headlines</b></h4>
-                      <p>${data.articles[i]["description"]}</p>
-                    </div>
-                    <div class="time">PUBLISHED AT  ${data.articles[i]["publishedAt"]} </div>
-                    <a  class="anker"  href="${url}" target="_blank" >Read more here</a> 
-                  </div>
+                `  
+                <div class="card2">
+                <img src="${urlToImage}" alt="" class="img">
+                <div class="container2">
+                <h4><b>HEADLINES</b></h4>
+                  <p>${data.articles[i]["title"]}</p>
+                </div>
+                <div class="time">PUBLISHED AT  ${data.articles[i]["publishedAt"]} </div>
+                <a  class="anker"  href="${url}" target="_blank" >Read more here</a> 
+              </div>
 `
             }
         })
@@ -79,4 +78,61 @@ document.getElementById("submit").onclick = function () {
     getData()
     getData2()
     inputvalue.value = ""
+}
+
+function headlines(){
+    
+    fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=c290fe19c35c47ada391c2cbce5ec3e1')
+    .then(res => res.json())
+    .then((data) => {
+
+        console.log(data)
+        let articles = data.articles
+        let i = 0
+        for (i = 0; i < articles.length; i++) {
+            let rightBox = document.getElementById("mydiv");
+            let urlToImage = data.articles[i]["urlToImage"]
+            let url =  data.articles[i]["url"]
+            rightBox.innerHTML +=
+                `  
+                <div class="card3">
+                <img src="${urlToImage}" alt="" class="img card3img">
+                <div class="container2">
+                <h4><b>HEADLINES</b></h4>
+                  <p>${data.articles[i]["title"]}</p>
+                </div>
+                <div class="time">PUBLISHED AT  ${data.articles[i]["publishedAt"]} </div>
+                <a  class="anker"  href="${url}" target="_blank" >Read more here</a> 
+              </div>
+`
+  }
+    })
+}
+
+function bbc() {
+    fetch('https://newsapi.org/v2/everything?q=bbc&from=2022-08-24&sortBy=publishedAt&apiKey=c290fe19c35c47ada391c2cbce5ec3e1')
+        .then(res => res.json())
+        .then((data) => {
+
+            let articles = data.articles
+            console.log(articles)
+            let i = 0
+            for (i = 0; i < articles.length; i++) {
+                let leftBox = document.getElementById("leftBox");
+                leftBox.style.width = "100%"
+                let urlToImage = data.articles[i]["urlToImage"]
+                let url =  data.articles[i]["url"]
+                leftBox.innerHTML +=
+                `  
+                <div class="card">
+                <img src="${urlToImage}" alt="" class="img">
+                <div class="container2">
+                  <h4><b>HEADLINES</b></h4>
+                  <p>${data.articles[i]["title"]}</p>
+                </div>
+                <div class="time">PUBLISHED AT  ${data.articles[i]["publishedAt"]} </div>
+                <a  class="anker"  href="${url}" target="_blank" >Read more here</a> 
+       `
+            }
+        })
 }
